@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI 报表分析与 Validation 校验规则平台</title>
+  <meta name="description" content="企业级金融后台 AI 报表分析与 Validation 校验规则平台高保真交互原型">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <svg class="icon-sprite" aria-hidden="true">
+    <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></symbol>
+    <symbol id="i-report" viewBox="0 0 24 24"><path d="M5 3.8h9.5L19 8.3v11.9H5z"/><path d="M14 4v5h5M8.5 12h7M8.5 15.5h7"/></symbol>
+    <symbol id="i-validation" viewBox="0 0 24 24"><path d="M12 3.2 20 6v5.3c0 4.5-3.2 7.8-8 9.5-4.8-1.7-8-5-8-9.5V6z"/><path d="m8.4 12 2.3 2.4 4.8-5"/></symbol>
+    <symbol id="i-upload" viewBox="0 0 24 24"><path d="M4 15.5v4h16v-4M12 16V4M7.5 8.5 12 4l4.5 4.5"/></symbol>
+    <symbol id="i-approval" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3.8 19c.4-3.7 2.1-5.8 5.2-5.8s4.8 2.1 5.2 5.8M16 8.5l1.6 1.6 3-3.2"/><path d="M16.8 14.2c2.2.4 3.2 2 3.4 4.8"/></symbol>
+    <symbol id="i-settings" viewBox="0 0 24 24"><path d="M4 7h10M18 7h2M4 17h2M10 17h10M14 4v6M6 14v6"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.3"/><path d="m16 16 4 4"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M6.1 8.2A7.4 7.4 0 0 1 19.8 11M4.2 13A7.4 7.4 0 0 0 18 15.8"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 4v16M4 12h16"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="11" height="11" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 3.5h6L16 7H8zM7 7l.7 13h8.6L17 7M10 11v5M14 11v5"/></symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2.8 12s3.3-5.8 9.2-5.8 9.2 5.8 9.2 5.8-3.3 5.8-9.2 5.8S2.8 12 2.8 12Z"/><circle cx="12" cy="12" r="2.7"/></symbol>
+    <symbol id="i-back" viewBox="0 0 24 24"><path d="m15 5-7 7 7 7M8 12h11"/></symbol>
+    <symbol id="i-chevron-down" viewBox="0 0 24 24"><path d="m7 9 5 5 5-5"/></symbol>
+    <symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.3 4.3L19 7"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3 2.8 20h18.4z"/><path d="M12 8v5M12 16.7v.1"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7v.1"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 2"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4.5 21c.5-4.5 3-6.8 7.5-6.8s7 2.3 7.5 6.8"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3.5 19c.4-3.7 2.2-5.8 5.5-5.8s5.1 2.1 5.5 5.8M15.5 5.5a3 3 0 0 1 0 5.8M17 13.5c2 .4 3.2 2 3.5 4.5"/></symbol>
+    <symbol id="i-building" viewBox="0 0 24 24"><path d="M4 21V7l8-4v18M12 9h8v12M7.5 8h1M7.5 12h1M7.5 16h1M15.5 12h1M15.5 16h1M2.5 21h19"/></symbol>
+    <symbol id="i-database" viewBox="0 0 24 24"><ellipse cx="12" cy="5.5" rx="8" ry="3"/><path d="M4 5.5v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6M4 11.5v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24"><path d="M5 3.5h9l5 5v12H5z"/><path d="M14 4v5h5"/></symbol>
+    <symbol id="i-paperclip" viewBox="0 0 24 24"><path d="m8.2 12.8 6.5-6.5a3.1 3.1 0 0 1 4.4 4.4l-8.4 8.4a5 5 0 0 1-7.1-7.1l8.1-8.1"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></symbol>
+    <symbol id="i-arrow-up" viewBox="0 0 24 24"><path d="M12 20V5M6.5 10.5 12 5l5.5 5.5"/></symbol>
+    <symbol id="i-arrow-down" viewBox="0 0 24 24"><path d="M12 4v15M6.5 13.5 12 19l5.5-5.5"/></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24"><path d="M5.5 17h13l-1.5-2.3V10a5 5 0 0 0-10 0v4.7zM10 20h4"/></symbol>
+    <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.7 9a2.5 2.5 0 1 1 3.2 2.4c-.9.4-1.2 1-1.2 2M11.7 17v.1"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="16" rx="2"/><path d="M8 3v4M16 3v4M3.5 9.5h17M8 13h2M14 13h2M8 17h2"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="m9 6 9 6-9 6z"/></symbol>
+    <symbol id="i-edit" viewBox="0 0 24 24"><path d="m14 5 5 5M4 20l4.5-1L20 7.5 16.5 4 5 15.5z"/></symbol>
+    <symbol id="i-workflow" viewBox="0 0 24 24"><rect x="3" y="4" width="7" height="5" rx="1.5"/><rect x="14" y="15" width="7" height="5" rx="1.5"/><rect x="3" y="15" width="7" height="5" rx="1.5"/><path d="M10 6.5h4a3 3 0 0 1 3 3V15M10 17.5h-3"/></symbol>
+    <symbol id="i-history" viewBox="0 0 24 24"><path d="M4 4v5h5"/><path d="M5.2 8.2A8 8 0 1 1 4 13M12 7.5V12l3 2"/></symbol>
+    <symbol id="i-upload-cloud" viewBox="0 0 24 24"><path d="M7.2 18.5A4.5 4.5 0 0 1 7.7 9.6a6.1 6.1 0 0 1 11.4 1.8 3.7 3.7 0 0 1-.8 7.1M12 20V11M8.7 14.3 12 11l3.3 3.3"/></symbol>
+    <symbol id="i-code" viewBox="0 0 24 24"><path d="m8 7-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></symbol>
+    <symbol id="i-folder" viewBox="0 0 24 24"><path d="M3 6h7l2 2h9v11H3z"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 20 6v5.3c0 4.5-3.2 7.8-8 9.5-4.8-1.7-8-5-8-9.5V6z"/><path d="m8.5 12 2.2 2.2 4.8-4.8"/></symbol>
+    <symbol id="i-filter" viewBox="0 0 24 24"><path d="M4 6h16M7 12h10M10 18h4"/></symbol>
+    <symbol id="i-comment" viewBox="0 0 24 24"><path d="M4 4.5h16v12H9l-5 4z"/></symbol>
+    <symbol id="i-send" viewBox="0 0 24 24"><path d="m3 11 18-8-8 18-2.2-7.8zM10.8 13.2 21 3"/></symbol>
+    <symbol id="i-grip" viewBox="0 0 24 24"><circle cx="9" cy="6" r=".8"/><circle cx="15" cy="6" r=".8"/><circle cx="9" cy="12" r=".8"/><circle cx="15" cy="12" r=".8"/><circle cx="9" cy="18" r=".8"/><circle cx="15" cy="18" r=".8"/></symbol>
+    <symbol id="i-more" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></symbol>
+    <symbol id="i-command" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><path d="M7 8h5v8H7zM15 8h3M15 12h3M15 16h3"/></symbol>
+    <symbol id="i-plus-circle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12M7.5 10.5 12 15l4.5-4.5M4 20h16"/></symbol>
+    <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 13.8a4 4 0 0 0 5.6.1l2.6-2.6a4 4 0 0 0-5.6-5.6l-1.5 1.5"/><path d="M14 10.2a4 4 0 0 0-5.6-.1l-2.6 2.6a4 4 0 0 0 5.6 5.6l1.5-1.5"/></symbol>
+    <symbol id="i-list" viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13M3 6h.1M3 12h.1M3 18h.1"/></symbol>
+    <symbol id="i-external" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9"/><path d="M18 13v6H5V6h6"/></symbol>
+  </svg>
+
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#home" aria-label="返回模块首页">
+        <span class="brand-mark">
+          <svg viewBox="0 0 36 36" aria-hidden="true">
+            <path d="M18 4.5 30 11v14L18 31.5 6 25V11z" fill="none" stroke="currentColor" stroke-width="2.2"/>
+            <path d="M11.5 22.5 16 16l4 4 5-7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <span class="brand-copy">
+          <strong>AI 报表分析</strong>
+          <span>Validation Platform</span>
+        </span>
+      </a>
+
+      <nav class="nav" aria-label="主导航">
+        <div class="nav-section">
+          <div class="nav-label">工作空间</div>
+          <a class="nav-item" href="#home" data-route="home">
+            <svg><use href="#i-grid"></use></svg><span>模块首页</span>
+          </a>
+        </div>
+        <div class="nav-section">
+          <div class="nav-label">AI 生成</div>
+          <a class="nav-item" href="#reporting" data-route="reporting">
+            <svg><use href="#i-report"></use></svg><span>Reporting</span>
+            <span class="nav-count">6</span>
+          </a>
+          <a class="nav-item" href="#validation" data-route="validation">
+            <svg><use href="#i-validation"></use></svg><span>Validation</span>
+            <span class="nav-count">3</span>
+          </a>
+        </div>
+        <div class="nav-section">
+          <div class="nav-label">数据资产</div>
+          <a class="nav-item" href="#uploads" data-route="uploads">
+            <svg><use href="#i-upload"></use></svg><span>线下数据上传</span>
+          </a>
+        </div>
+        <div class="nav-section">
+          <div class="nav-label">审批协作</div>
+          <a class="nav-item" href="#workbench" data-route="workbench">
+            <svg><use href="#i-approval"></use></svg><span>审批工作台</span>
+            <span class="nav-count">7</span>
+          </a>
+          <a class="nav-item admin-only" href="#workflows" data-route="workflows">
+            <svg><use href="#i-settings"></use></svg><span>审批控制中心</span>
+            <span class="nav-badge">管理</span>
+          </a>
+        </div>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="system-health">
+          <span class="health-dot"></span>
+          <div><strong>系统运行正常</strong><span>所有服务可用</span></div>
+          <span class="health-value">99.99%</span>
+        </div>
+        <div class="workspace-meta"><svg><use href="#i-database"></use></svg> HK-FIN-WB-08</div>
+      </div>
+    </aside>
+
+    <div class="main-shell">
+      <header class="topbar">
+        <div class="breadcrumb" id="breadcrumb">
+          <span>工作空间</span><svg><use href="#i-chevron-right"></use></svg><strong>模块首页</strong>
+        </div>
+        <div class="topbar-actions">
+          <div class="language-switch" role="group" aria-label="界面语言 / Interface language">
+            <button class="active" type="button" data-language="zh" aria-pressed="true">中</button>
+            <button type="button" data-language="en" aria-pressed="false">EN</button>
+          </div>
+          <button class="icon-button" type="button" data-tooltip="帮助中心" aria-label="帮助中心"><svg><use href="#i-help"></use></svg></button>
+          <button class="icon-button has-notice" type="button" data-tooltip="待办提醒" aria-label="待办提醒"><svg><use href="#i-bell"></use></svg></button>
+          <span class="topbar-divider"></span>
+          <button class="user-summary" id="userMenuButton" type="button" aria-haspopup="menu" aria-expanded="false">
+            <span class="avatar">LY</span>
+            <span class="user-copy">
+              <strong>林妍</strong>
+            <span><b>Market</b> CN · <b>Workbook</b> CN-••••-006A</span>
+            </span>
+            <svg class="chevron"><use href="#i-chevron-down"></use></svg>
+          </button>
+          <div class="popover user-menu" id="userMenu" role="menu">
+            <div class="popover-heading"><span class="avatar small">LY</span><div><strong>林妍</strong><span>金融数据管理部</span></div></div>
+            <div class="popover-separator"></div>
+            <button type="button" data-action="toggle-role"><svg><use href="#i-shield"></use></svg><span>切换为普通用户预览</span></button>
+            <button type="button" data-action="profile"><svg><use href="#i-user"></use></svg><span>个人信息与权限</span></button>
+            <div class="popover-separator"></div>
+            <button type="button" data-action="logout"><svg><use href="#i-back"></use></svg><span>退出登录</span></button>
+          </div>
+        </div>
+      </header>
+
+      <main class="page-host" id="pageView" tabindex="-1"></main>
+    </div>
+  </div>
+
+  <div class="overlay-host" id="overlayHost"></div>
+  <div class="toast-host" id="toastHost" aria-live="polite"></div>
+
+  <div class="demo-dock" id="demoDock">
+    <button class="demo-dock-toggle" id="demoDockToggle" type="button">
+      <svg><use href="#i-command"></use></svg>
+      <span>状态演示</span>
+    </button>
+    <div class="demo-dock-panel">
+      <div class="demo-dock-title"><span>原型状态预览</span><button type="button" id="demoDockClose" aria-label="关闭"><svg><use href="#i-close"></use></svg></button></div>
+      <p>切换当前页面的数据状态</p>
+      <div class="segmented compact" id="demoStateControl">
+        <button class="active" type="button" data-demo-state="normal">正常</button>
+        <button type="button" data-demo-state="empty">空态</button>
+        <button type="button" data-demo-state="failed">失败态</button>
+      </div>
+      <button class="demo-reset" type="button" data-demo-state="normal"><svg><use href="#i-refresh"></use></svg> 重置演示状态</button>
+    </div>
+  </div>
+
+  <script src="./app.js"></script>
+</body>
+</html>
